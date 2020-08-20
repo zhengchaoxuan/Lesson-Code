@@ -1,3 +1,8 @@
+# 1、为什么要设置headers?在请求网页爬取的时候，输出的text信息中会出现抱歉，
+#无法访问等字眼，这就是禁止爬取，需要通过反爬机制去解决这个问题。headers是解决requests请求反爬的方法之一，相当于我们进去这个网页的服务器本身，假装自己本身在爬取数据
+
+#3、headers中有很多内容，主要常用的就是user-agent 和 host，他们是以键对的形式展现出来，
+#如果user-agent 以字典键对形式作为headers的内容，就可以反爬成功，就不需要其他键对；否则，需要加入headers下的更多键对形式。
 import requests
 from bs4 import BeautifulSoup
 
