@@ -20,6 +20,10 @@ def get_content(html,page):
     for i in Content_list:
         name = i.find('h2').string
         author_info = i.find('div',class_ = 'articleGender')
+        Smiles = i.find('div',class_ = 'stats').find(class_='stats-vote').find('i',class_='number').string
+        Comment = i.find('div',class_ = 'stats').find(class_='stats-comments').find('i',class_='number').string
+        Content =i.find('div',class_ = 'content').find('span').get_text()
+        
         if author_info is not None:
             if  'womenIco' == author_info['class']:
                 sex = '女'
@@ -33,12 +37,9 @@ def get_content(html,page):
             sex = ' '
             age = ' '
 
-        Smiles = i.find('div',class_ = 'stats').find(class_='stats-vote').find('i',class_='number').string
-        Comment = i.find('div',class_ = 'stats').find(class_='stats-comments').find('i',class_='number').string
-        Content =i.find('div',class_ = 'content').find('span').get_text()
-
         write_txt(output.format(page,name,sex,age,Smiles,Comment,Content))
 
+#其为元组的格式
 def write_txt(*args):
     for i in args:
         with open('output.txt','a',encoding='utf-8') as f:
