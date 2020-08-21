@@ -1,0 +1,3 @@
+In Python you can easily to deal with digit
+In Python you can do machine learning
+In Python you can create a PC game

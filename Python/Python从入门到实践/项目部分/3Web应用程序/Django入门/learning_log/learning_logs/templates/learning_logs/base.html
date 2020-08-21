@@ -1,0 +1,75 @@
+<!---->
+<!--加载了 django-bootstrap3 中的模板标签集 jquery-->
+{% load bootstrap3 %}
+
+<!--声明为使用英语编写的 HTML 文档-->
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- HTML 文件分为两个主要部分： 头部（ head ）和 主体 （ body ）-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面用来正确显示页面所需的信息告诉浏览器，任何其他内容都*必须*跟随其后！ -->
+    <title>Learning Log</title>
+    
+    <!--使用了 django-bootstrap3 的一个自定义模板标签，它让 Django 包含所有的 Bootstrap 样式文件-->
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+
+<body>
+<!-- Static navbar -->
+    <!--<nav> 元素，表示页面的导航链接部分对于这个元素内的所有内容，都将根据 
+    选择器 （ selector ） navbar 、 navbar-default 和 navbar-static-top 定义的 Bootstrap 样式规则来设置样式--->
+    <nav class="navbar navbar-default navbar-static-top">
+        <!--居中-->
+      <div class="container">
+        <!--向 <div> 元素添加一个标题 class .navbar-header，内部包含了带有 class navbar-brand 的 <a> 元素。这会让文本看起来更大一号-->
+        <div class="navbar-header">
+            <!--这个模板定义了一个按钮，它将在浏览器窗口太窄、无法水平显示整个导航栏时显示出来。
+                如果用户单击这个按钮，将出现一个下拉列表，其中包含所有的导航元素。
+                在用户缩小浏览器窗口或在屏幕较小的移动设备上显示网站时， collapse 会使导航栏折叠起来。-->
+          <button type="button" class="navbar-toggle collapsed"
+            data-toggle="collapse" data-target="#navbar"
+            aria-expanded="false" aria-controls="navbar">
+          </button>
+            <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+                Learning Log</a>
+      </div>
+
+        <!--致使导航条折叠起来，导航条将不能被打开，.navbar-collapse 内所包含的内容也将不可见。-->
+        <div id="navbar" class="navbar-collapse collapse">
+          <!--添加了第一个导航链接列表使其出现在导航栏上,默认为左边-->
+          <ul class="nav navbar-nav ">
+              <li><a href="{% url 'learning_logs:topics' %}">Topics</a></li>
+          </ul>
+
+          <!--添加了第二个导航链接列表，这里使用的选择器为 navbar-right使其出现在导航栏右边-->
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+                <li><a>Hello, {{ user.username }}.</a></li>
+                <li><a href="{% url 'users:logout' %}">log out</a></li>
+            {% else %}
+                <li><a href="{% url 'users:register' %}">register</a></li>
+                <li><a href="{% url 'users:login' %}">log in</a></li>
+                {% endif %}
+        </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    </nav>
+        <div class="container">
+        <!--更改样式 -->    
+          <div class="page-header">
+              {% block header %}{% endblock header %}
+          </div>
+          
+          <div>
+              {% block content %}{% endblock content %}
+          </div>
+        </div> <!-- /container -->
+</body>
+</html>
